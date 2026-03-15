@@ -102,7 +102,7 @@
 <body>
 
 <div class="wrap">
-  <audio id="bgm" loop><source src="bgm.mp4" type="audio/mpeg"></audio>
+  <div id="yt-player" style="position:absolute; top:-9999px; left:-9999px;"></div>
 
   <div class="cover">
     <div class="cover-text fade-in">
@@ -248,8 +248,76 @@
 </div>
 
 <script>
-  // 원래 있던 기능들 복구
-  function toggleMusic() { const audio = document.getElementById("bgm"); const btn = document.getElementById("musicBtn"); if (audio.paused) { audio.play(); btn.innerHTML = "⏸️ 음악 끄기"; btn.classList.add("playing"); } else { audio.pause(); btn.innerHTML = "🎵 배경음악 재생"; btn.classList.remove("playing"); } }
+  // ==========================================
+  // 1. 유튜브 배경음악 기능 추가
+  // ==========================================
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  var player;
+  function onYouTubeIframeAPIReady() {
+      player = new YT.Player('yt-player', {
+          height: '0',
+          width: '0',
+          videoId: '4NyMQHQ_7QY', // Ra.D - I'm In Love
+          playerVars: {
+              'autoplay': 1,
+              'loop': 1,
+              'playlist': '4NyMQHQ_7QY',
+              'controls': 0,
+              'showinfo': 0,
+              'rel': 0,
+              'modestbranding': 1
+          },
+          events: {
+              'onReady': onPlayerReady,
+              'onStateChange': onPlayerStateChange
+          }
+      });
+  }
+
+  function onPlayerReady(event) {
+      // 화면 첫 터치/스크롤 시 자동 재생 (모바일 환경 필수)
+      const playBGM = () => {
+          if (player && typeof player.playVideo === 'function') {
+              player.playVideo();
+              document.removeEventListener('click', playBGM);
+              document.removeEventListener('touchstart', playBGM);
+              window.removeEventListener('scroll', playBGM);
+          }
+      };
+
+      document.addEventListener('click', playBGM);
+      document.addEventListener('touchstart', playBGM);
+      window.addEventListener('scroll', playBGM);
+  }
+
+  function onPlayerStateChange(event) {
+      const btn = document.getElementById("musicBtn");
+      if (event.data == YT.PlayerState.PLAYING) {
+          btn.innerHTML = "⏸️ 음악 끄기";
+          btn.classList.add("playing");
+      } else {
+          btn.innerHTML = "🎵 배경음악 재생";
+          btn.classList.remove("playing");
+      }
+  }
+
+  function toggleMusic() {
+      if (!player) return;
+      const state = player.getPlayerState();
+      if (state === YT.PlayerState.PLAYING) {
+          player.pauseVideo();
+      } else {
+          player.playVideo();
+      }
+  }
+
+  // ==========================================
+  // 2. 기존 청첩장 기능 유지
+  // ==========================================
   function toggleGallery() { const moreDiv = document.getElementById("moreGallery"); const btn = document.getElementById("galleryBtn"); if (moreDiv.style.display === "none") { moreDiv.style.display = "block"; btn.innerHTML = "사진 접기 ▲"; } else { moreDiv.style.display = "none"; btn.innerHTML = "사진 더보기 ▼"; } }
   function openModal(imgSrc) { const modal = document.getElementById("imageModal"); const expandedImg = document.getElementById("expandedImg"); modal.style.display = "block"; expandedImg.src = imgSrc; }
   function closeModal() { document.getElementById("imageModal").style.display = "none"; }
