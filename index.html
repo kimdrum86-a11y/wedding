@@ -63,7 +63,7 @@
     .cal-date { padding: 8px 0; border-radius: 50%; width: 32px; height: 32px; box-sizing: border-box; margin: 0 auto; line-height: 16px; }
     .highlight { background-color: #d69fa5; color: white !important; font-weight: bold; box-shadow: 0 3px 8px rgba(214, 159, 165, 0.4); }
 
-    /* 6. 웨딩 갤러리 - 한 화면에 한 장씩 스와이프 */
+    /* 6. 웨딩 갤러리 */
     .gallery-container { position: relative; margin-top: 20px; }
     .gallery-slider { 
       display: flex; overflow-x: auto; scroll-snap-type: x mandatory; 
@@ -72,26 +72,18 @@
     .gallery-slider::-webkit-scrollbar { display: none; }
     .gallery-item-wrapper { flex: 0 0 100%; width: 100%; scroll-snap-align: center; aspect-ratio: 4 / 5; }
     .gallery-item { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; cursor: pointer; }
-    .slide-info { font-size: 11px; color: #aaa; margin-top: 10px; text-align: center; }
+    .slide-info { font-size: 12px; color: #aaa; margin-top: 10px; text-align: center; }
 
-    /* ⭐ 7. 모달 전용 스타일 (스와이프 + 모바일 줌 전용) ⭐ */
+    /* 확대 모달 및 모달 내부 스타일 */
     .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); overflow: hidden; }
     .modal-slider { display: flex; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: auto; }
     .modal-slider::-webkit-scrollbar { display: none; }
-    .modal-slide { 
-      flex: 0 0 100%; width: 100%; height: 100%; 
-      display: flex; align-items: center; justify-content: center; 
-      scroll-snap-align: center; overflow: hidden; 
-    }
-    .modal-slide img { 
-      max-width: 95%; max-height: 85vh; border-radius: 5px; 
-      transition: transform 0.2s ease-out;
-      transform-origin: center center;
-    }
+    .modal-slide { flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; scroll-snap-align: center; }
+    .modal-slide img, #singleModalImg { max-width: 95%; max-height: 85vh; border-radius: 5px; }
+    #singleModalImg { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
     .close-modal { position: absolute; top: 20px; right: 25px; color: #fff; font-size: 40px; font-weight: 300; cursor: pointer; z-index: 10001; }
-    .zoom-hint { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.4); font-size: 11px; z-index: 10001; pointer-events: none; }
 
-    /* 8. 연락처 및 오시는 길 */
+    /* 7. 연락처 및 오시는 길 */
     .contact-box { background: #fdf5f6; padding: 25px 20px; border-radius: 15px; margin-bottom: 20px; text-align: left; border: 1px solid #f7e9ea; }
     .contact-title { font-size: 16px; font-weight: 600; margin-bottom: 15px; color: #c28189; border-bottom: 1px solid #f7e9ea; padding-bottom: 10px; }
     .contact-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 15px; }
@@ -102,13 +94,13 @@
     .btn-naver { background: #03cf5d; color: #fff; border-color: #03cf5d; }
     .btn-tmap { background: #333; color: #fff; border-color: #333; }
 
-    /* 9. 계좌번호 */
+    /* 8. 계좌번호 */
     .account-btn { width: 100%; padding: 18px; background: #fff; border: 1px solid #f7e9ea; border-radius: 10px; font-family: 'Noto Serif KR'; font-size: 15px; margin-bottom: 10px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: #554445; }
     .account-content { display: none; background: #fdf5f6; padding: 10px 20px; border-radius: 10px; margin-bottom: 15px; text-align: left; }
     .account-row { padding: 15px 0; border-bottom: 1px dashed #e8c5c9; display: flex; justify-content: space-between; align-items: center; }
     .copy-btn { padding: 6px 12px; background: #d69fa5; color: white; border-radius: 4px; font-size: 12px; border: none; cursor: pointer; }
 
-    /* 10. 스냅 & RSVP */
+    /* 9. 스냅 & RSVP */
     .snap-wrap { background: #fdf5f6; padding: 35px 20px; border-radius: 15px; text-align: center; border: 1px solid #f7e9ea; }
     .btn-upload { display: block; width: 100%; padding: 16px; background: #d69fa5; color: white; border-radius: 10px; text-decoration: none; font-size: 15px; font-weight: 600; cursor: pointer; border: none; box-sizing: border-box; box-shadow: 0 4px 10px rgba(214, 159, 165, 0.3); }
     #rsvpPopup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; justify-content: center; align-items: center; }
@@ -192,15 +184,14 @@
         <div class="gallery-item-wrapper"><img src="9.jpg" class="gallery-item" onclick="openModal(8)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=9'"></div>
         <div class="gallery-item-wrapper"><img src="3.jpg" class="gallery-item" onclick="openModal(9)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=10'"></div>
       </div>
-      <div class="slide-info">옆으로 밀기 / 두 손가락으로 사진 확대 가능 ↔</div>
+      <div class="slide-info">옆으로 밀어서 사진을 확인해보세요 ↔</div>
     </div>
   </div>
 
   <div id="imageModal" class="modal">
     <span class="close-modal" onclick="closeModal()">×</span>
-    <div class="zoom-hint">두 번 톡톡 또는 두 손가락으로 확대</div>
     <div class="modal-slider" id="modalSlider"></div>
-  </div>
+    <img id="singleModalImg" src="" alt="약도 크게보기"> </div>
 
   <div class="section fade-in" style="background:#fff;">
     <div class="sec-title">LOCATION</div>
@@ -208,8 +199,7 @@
       <strong style="font-size: 18px; color: #4a3b3c;">엘로라 인 가든</strong><br>
       <div style="font-size: 13px; color: #888; margin-top: 8px;">서울 송파구 충민로 52 가든파이브 웍스동 1층</div>
     </div>
-    <div style="width: 100%; margin-bottom: 40px; border-radius: 4px; overflow: hidden; border: 1px solid #f0f0f0; cursor: pointer;" onclick="openModal(0)">
-      <img src="약도.jpg" alt="약도" style="width: 100%; display: block;" onerror="this.src='https://via.placeholder.com/500x350/fdf5f6/c28189?text=약도'">
+    <div style="width: 100%; margin-bottom: 40px; border-radius: 4px; overflow: hidden; border: 1px solid #f0f0f0; cursor: pointer;" onclick="openMapModal('약도.jpg')"> <img src="약도.jpg" alt="약도" style="width: 100%; display: block;" onerror="this.src='https://via.placeholder.com/500x350/fdf5f6/c28189?text=약도'">
     </div>
     <div class="nav-btns">
       <a href="https://map.kakao.com/link/search/엘로라인가든" class="nav-btn btn-kakao" target="_blank">카카오내비</a>
@@ -251,7 +241,7 @@
 </div>
 
 <script>
-  // 1. 유튜브 BGM
+  // 1. 유튜브 배경음악
   var tag = document.createElement('script'); tag.src = "https://www.youtube.com/iframe_api";
   var firstScriptTag = document.getElementsByTagName('script')[0]; firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   var player;
@@ -273,71 +263,46 @@
   }
   function toggleMusic() { if(!player) return; player.getPlayerState() === 1 ? player.pauseVideo() : player.playVideo(); }
 
-  // ⭐ 2. 최종 갤러리 로직 (스와이프 + 더블탭 + 핀치줌) ⭐
+  // ⭐ 2. 갤러리 및 모달 스와이프 기능 ⭐
+  const gallerySlider = document.querySelector('.gallery-slider');
   const modalSlider = document.getElementById('modalSlider');
   const images = document.querySelectorAll('.gallery-slider .gallery-item');
+  const singleModalImg = document.getElementById('singleModalImg');
   
+  // 모달 내부 슬라이드 이미지 생성
   images.forEach((img, index) => {
     const slide = document.createElement('div');
     slide.className = 'modal-slide';
-    const modalImg = document.createElement('img');
-    modalImg.src = img.src;
-    
-    let scale = 1;
-    let lastTap = 0;
-    let startDist = 0;
-
-    modalImg.addEventListener('touchstart', function(e) {
-      if (e.touches.length === 1) { // 손가락 하나일 때 (더블탭 감지)
-        const curTime = new Date().getTime();
-        const tapLen = curTime - lastTap;
-        if (tapLen < 300 && tapLen > 0) {
-          e.preventDefault();
-          scale = (scale !== 1) ? 1 : 2.5;
-          this.style.transform = `scale(${scale})`;
-        }
-        lastTap = curTime;
-      } else if (e.touches.length === 2) { // 손가락 두 개일 때 (핀치줌 준비)
-        startDist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
-      }
-    });
-
-    modalImg.addEventListener('touchmove', function(e) {
-      if (e.touches.length === 2 && startDist > 0) {
-        e.preventDefault();
-        const dist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
-        let newScale = scale * (dist / startDist);
-        if (newScale < 1) newScale = 1;
-        if (newScale > 4) newScale = 4;
-        this.style.transform = `scale(${newScale})`;
-      }
-    });
-
-    modalImg.addEventListener('touchend', function(e) {
-      if (e.touches.length < 2) {
-        const match = this.style.transform.match(/scale\(([^)]+)\)/);
-        if (match) scale = parseFloat(match[1]);
-        startDist = 0;
-      }
-    });
-
-    slide.appendChild(modalImg);
+    slide.innerHTML = `<img src="${img.src}" onerror="this.src='${img.src}'">`;
     modalSlider.appendChild(slide);
   });
 
+  // 약도 전용 모달 열기 함수 추가
+  function openMapModal(src) {
+    const modal = document.getElementById("imageModal");
+    modalSlider.style.display = "none"; // 갤러리 슬라이더 숨김
+    singleModalImg.style.display = "block"; // 단일 이미지 보임
+    singleModalImg.src = src;
+    modal.style.display = "block";
+    document.body.style.overflow = 'hidden';
+  }
+
   function openModal(index) {
-    document.getElementById("imageModal").style.display = "block";
-    modalSlider.scrollLeft = modalSlider.offsetWidth * index;
+    const modal = document.getElementById("imageModal");
+    singleModalImg.style.display = "none"; // 단일 이미지 숨김
+    modalSlider.style.display = "flex"; // 갤러리 슬라이더 보임
+    modal.style.display = "block";
+    const slideWidth = modalSlider.offsetWidth;
+    modalSlider.scrollLeft = slideWidth * index;
     document.body.style.overflow = 'hidden';
   }
 
   function closeModal() {
-    document.querySelectorAll('.modal-slide img').forEach(img => { img.style.transform = 'scale(1)'; });
     document.getElementById("imageModal").style.display = "none";
     document.body.style.overflow = 'auto';
   }
 
-  // 3. 기타 기능 (기존 유지)
+  // 3. 기타 기능 (수정 없음)
   function toggleAcc(id) { const el = document.getElementById(id); el.style.display = (el.style.display === "block") ? "none" : "block"; }
   function copyText(val) { const t = document.createElement("textarea"); document.body.appendChild(t); t.value = val; t.select(); document.execCommand('copy'); document.body.removeChild(t); alert('복사되었습니다.'); }
   
