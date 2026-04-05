@@ -54,7 +54,7 @@
     .sec-title { font-size: 14px; color: #d69fa5; letter-spacing: 3px; margin-bottom: 30px; font-weight: 600; }
     .greeting p { font-size: 15px; line-height: 2.2; margin-bottom: 40px; color: #554445; }
     .parents-name { font-size: 16px; line-height: 2.2; }
-    .relation { color: #aaa; font-size: 14px; margin: 0 5px; }
+    .relation { color: #aaa; font-size: 13px; display: block; margin: 5px 0; }
 
     /* 5. 달력 */
     .calendar-wrap { margin: 0 auto; max-width: 320px; }
@@ -63,18 +63,12 @@
     .cal-date { padding: 8px 0; border-radius: 50%; width: 32px; height: 32px; box-sizing: border-box; margin: 0 auto; line-height: 16px; }
     .highlight { background-color: #d69fa5; color: white !important; font-weight: bold; box-shadow: 0 3px 8px rgba(214, 159, 165, 0.4); }
 
-    /* 6. 웨딩 갤러리 - 한 화면에 한 장씩 스와이프 */
-    .gallery-container { position: relative; margin-top: 20px; }
-    .gallery-slider { 
-      display: flex; overflow-x: auto; scroll-snap-type: x mandatory; 
-      scroll-behavior: smooth; -webkit-overflow-scrolling: touch; gap: 0; padding: 0; 
-    }
-    .gallery-slider::-webkit-scrollbar { display: none; }
-    .gallery-item-wrapper { flex: 0 0 100%; width: 100%; scroll-snap-align: center; aspect-ratio: 4 / 5; }
-    .gallery-item { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; cursor: pointer; }
-    .slide-info { font-size: 11px; color: #aaa; margin-top: 10px; text-align: center; }
+    /* ⭐ 6. 웨딩 갤러리 (초기 더보기 방식) ⭐ */
+    .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+    .gallery-item { width: 100%; aspect-ratio: 1; background-color: #f7e9ea; border-radius: 10px; object-fit: cover; cursor: pointer; }
+    .btn-more { display: inline-block; padding: 10px 30px; border: 1px solid #e8c5c9; background: #fff; color: #c28189; border-radius: 20px; font-size: 14px; cursor: pointer; font-family: 'Noto Serif KR'; margin-top: 15px; }
 
-    /* 모달 및 슬라이더 스타일 */
+    /* ⭐ 모달 및 슬라이더 스타일 (모달 내부는 스와이프 유지) ⭐ */
     .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); overflow: hidden; }
     .modal-slider { display: flex; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: auto; }
     .modal-slider::-webkit-scrollbar { display: none; }
@@ -83,7 +77,7 @@
     #singleModalImg { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
     .close-modal { position: absolute; top: 20px; right: 25px; color: #fff; font-size: 40px; font-weight: 300; cursor: pointer; z-index: 10001; }
 
-    /* 7. 연락처 섹션 스타일 */
+    /* 7. 연락처 섹션 스타일 수정 */
     .contact-box { background: #fdf5f6; padding: 25px 20px; border-radius: 15px; margin-bottom: 20px; text-align: left; border: 1px solid #f7e9ea; }
     .contact-title { font-size: 16px; font-weight: 600; margin-bottom: 15px; color: #c28189; border-bottom: 1px solid #f7e9ea; padding-bottom: 10px; }
     .contact-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 14px; line-height: 1.4; }
@@ -98,7 +92,7 @@
     .btn-naver { background: #03cf5d; color: #fff; border-color: #03cf5d; }
     .btn-tmap { background: #333; color: #fff; border-color: #333; }
 
-    /* 9. 계좌번호 스타일 */
+    /* 9. 계좌번호 스타일 수정 */
     .account-btn { width: 100%; padding: 18px; background: #fff; border: 1px solid #f7e9ea; border-radius: 10px; font-family: 'Noto Serif KR'; font-size: 15px; margin-bottom: 10px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: #554445; }
     .account-content { display: none; background: #fdf5f6; padding: 10px 20px; border-radius: 10px; margin-bottom: 15px; text-align: left; }
     .account-row { padding: 15px 0; border-bottom: 1px dashed #e8c5c9; display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
@@ -137,11 +131,15 @@
 
   <div class="section greeting fade-in">
     <div class="sec-title">저희 결혼합니다</div>
-    <p>함께 있을 때 가장 나다운 모습이 되게 하는<br>단 한 사람을 만났습니다.<br><br>서로의 웃음소리를 가장 좋아하던 두 사람이<br>이제 평생의 웃음을 함께 만들어가려 합니다.<br><br>저희의 결혼 소식이<br>부담스럽지 않게 다가가길 바라며,<br>편한 마음으로 오셔서<br>축하해주시면 감사하겠습니다.</p>
+    <p>함께 있을 때 가장 나다운 모습이 되게 하는<br>단 한 사람을 만났습니다.<br><br>서로의 웃음소리를 가장 좋아하던 두 사람이<br>이제 평생의 웃음을 함께 만들어가려 합니다.<br><br>저희의 결혼 소식이 부담스럽지 않게 다가가길 바라며,<br>편한 마음으로 오셔서 축하해주시면 감사하겠습니다.</p>
     
     <div class="parents-name">
-      김기선 · 이민숙 <span class="relation">의 아들</span> 효진<br>
-      장두순 · 유영미 <span class="relation">의 딸</span> 영진
+      김기선 · 이민숙
+      <span class="relation">의 아들</span>
+      <strong>효진</strong><br><br>
+      장두순 · 유영미
+      <span class="relation">의 딸</span>
+      <strong>영진</strong>
     </div>
   </div>
 
@@ -190,26 +188,29 @@
         <div class="cal-date sun">19</div><div class="cal-date">20</div><div class="cal-date">21</div><div class="cal-date">22</div><div class="cal-date">23</div><div class="cal-date">24</div><div class="cal-date">25</div>
         <div class="cal-date sun">26</div><div class="cal-date">27</div><div class="cal-date">28</div><div class="cal-date">29</div><div class="cal-date">30</div><div class="cal-date">31</div><div></div>
       </div>
-      <div class="cal-time-info point-color" style="margin-top:20px; font-weight:600;">2026년 7월 4일 토요일 오전 11시<br>엘로라 인 가든</div>
+      <div class="cal-time-info point-color" style="margin-top:20px; font-weight:600;">2026년 7월 4일 토요일 오전 11시</div>
     </div>
   </div>
 
   <div class="section fade-in">
     <div class="sec-title">GALLERY</div>
-    <div class="gallery-container">
-      <div class="gallery-slider">
-        <div class="gallery-item-wrapper"><img src="1.jpg" class="gallery-item" onclick="openModal(0)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=1'"></div>
-        <div class="gallery-item-wrapper"><img src="6.jpg" class="gallery-item" onclick="openModal(1)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=2'"></div>
-        <div class="gallery-item-wrapper"><img src="10.jpg" class="gallery-item" onclick="openModal(2)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=3'"></div>
-        <div class="gallery-item-wrapper"><img src="4.jpg" class="gallery-item" onclick="openModal(3)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=4'"></div>
-        <div class="gallery-item-wrapper"><img src="5.jpg" class="gallery-item" onclick="openModal(4)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=5'"></div>
-        <div class="gallery-item-wrapper"><img src="2.jpg" class="gallery-item" onclick="openModal(5)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=6'"></div>
-        <div class="gallery-item-wrapper"><img src="7.jpg" class="gallery-item" onclick="openModal(6)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=7'"></div>
-        <div class="gallery-item-wrapper"><img src="8.jpg" class="gallery-item" onclick="openModal(7)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=8'"></div>
-        <div class="gallery-item-wrapper"><img src="9.jpg" class="gallery-item" onclick="openModal(8)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=9'"></div>
-      </div>
-      <div class="slide-info">옆으로 밀어서 사진을 확인해보세요 ↔</div>
+    <div class="gallery-grid">
+      <img src="1.jpg" class="gallery-item" onclick="openModal(0)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=1'">
+      <img src="6.jpg" class="gallery-item" onclick="openModal(1)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=2'">
+      <img src="10.jpg" class="gallery-item" onclick="openModal(2)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=3'">
+      <img src="4.jpg" class="gallery-item" onclick="openModal(3)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=4'">
+      <img src="5.jpg" class="gallery-item" onclick="openModal(4)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=5'">
+      <img src="2.jpg" class="gallery-item" onclick="openModal(5)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=6'">
     </div>
+    <div id="moreGallery" style="display: none;">
+      <div class="gallery-grid" style="margin-top: 10px;">
+        <img src="7.jpg" class="gallery-item" onclick="openModal(6)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=7'">
+        <img src="8.jpg" class="gallery-item" onclick="openModal(7)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=8'">
+        <img src="9.jpg" class="gallery-item" onclick="openModal(8)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=9'">
+        <img src="3.jpg" class="gallery-item" onclick="openModal(9)" onerror="this.src='https://via.placeholder.com/400x500/fcf4f5/c28189?text=10'">
+      </div>
+    </div>
+    <button id="galleryBtn" class="btn-more" onclick="toggleGallery()">사진 더보기 ▼</button>
   </div>
 
   <div id="imageModal" class="modal">
@@ -233,6 +234,7 @@
       <a href="tmap://route?goalname=엘로라인가든&goalx=127.1228&goaly=37.4780" class="nav-btn btn-tmap" target="_blank">TMAP</a>
     </div>
   </div>
+
   <div class="section fade-in">
     <div class="sec-title">ACCOUNT</div>
     <button class="account-btn" onclick="toggleAcc('accGroom')">신랑측 마음 전하실 곳 <span class="point-color">▼</span></button>
@@ -284,7 +286,7 @@
 </div>
 
 <script>
-  // 1. 유튜브 BGM
+  // 1. 유튜브 배경음악
   var tag = document.createElement('script'); tag.src = "https://www.youtube.com/iframe_api";
   var firstScriptTag = document.getElementsByTagName('script')[0]; firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   var player;
@@ -306,11 +308,24 @@
   }
   function toggleMusic() { if(!player) return; player.getPlayerState() === 1 ? player.pauseVideo() : player.playVideo(); }
 
-  // 2. 갤러리 로직
+  // ⭐ 2. 갤러리 로직 복구 (더보기 버튼 + 크게 볼 때 스와이프 기능) ⭐
+  function toggleGallery() { 
+    const moreDiv = document.getElementById("moreGallery"); 
+    const btn = document.getElementById("galleryBtn"); 
+    if (moreDiv.style.display === "none") { 
+      moreDiv.style.display = "block"; 
+      btn.innerHTML = "사진 접기 ▲"; 
+    } else { 
+      moreDiv.style.display = "none"; 
+      btn.innerHTML = "사진 더보기 ▼"; 
+    } 
+  }
+
   const modalSlider = document.getElementById('modalSlider');
-  const images = document.querySelectorAll('.gallery-slider .gallery-item');
+  const images = document.querySelectorAll('.gallery-grid .gallery-item');
   const singleModalImg = document.getElementById('singleModalImg');
   
+  // 모달 안에 스와이프용 이미지들 채워넣기
   images.forEach((img, index) => {
     const slide = document.createElement('div');
     slide.className = 'modal-slide';
@@ -344,7 +359,7 @@
     document.body.style.overflow = 'auto';
   }
 
-  // 3. 기타 기능
+  // 3. 기타 기능 (기존 유지)
   function toggleAcc(id) { const el = document.getElementById(id); el.style.display = (el.style.display === "block") ? "none" : "block"; }
   function copyText(val) { const t = document.createElement("textarea"); document.body.appendChild(t); t.value = val; t.select(); document.execCommand('copy'); document.body.removeChild(t); alert('복사되었습니다.'); }
   
